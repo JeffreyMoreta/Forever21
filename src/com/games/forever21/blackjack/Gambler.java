@@ -7,6 +7,7 @@ abstract class Gambler {
     private boolean hasWon;
     private boolean hasLost;
     private Long amountOfWins;
+    private Accounting accounting;
 
     public void countHand() {
 
