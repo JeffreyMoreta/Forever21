@@ -3,10 +3,26 @@ package com.games.forever21.blackjack.domain;
 import java.util.Collection;
 
 public abstract class Gamblers {
+    // INSTANCE FACTORY
+    public static Gamblers createGambler(String type, String name, int balance) throws IllegalArgumentException {
+        Gamblers gambler;
+        if ("Dealer".equalsIgnoreCase(type)){
+            gambler = new Dealer(name);
+        }
+        else if ("Player".equalsIgnoreCase(type)){
+            gambler = new Player(name);
+        }
+        else{
+            throw new IllegalArgumentException("Gambler: Incorrect arguments have been passed inorder to create a gambler." +
+                    " Must pass a type, proper name, and a balance. i.e.; (Dealer, Jay, 5000)");
+        }
+        return gambler;
+    }
+
     private String name;
     private int balance;
     private Collection<Card> currentHand;
-    private boolean pass;
+    private boolean pass = false;
     private boolean hasLost;
     private Long amountOfWins;
 
@@ -19,37 +35,6 @@ public abstract class Gamblers {
         setBalance(balance);
     }
 
-    // INSTANCE FACTORY
-    static Gamblers createGambler(String type, String name) throws IllegalArgumentException {
-        Gamblers gambler;
-        if ("Dealer".equalsIgnoreCase(type)){
-            gambler = new Dealer(name);
-        }
-        if ("Player".equalsIgnoreCase(type)){
-            gambler = new Player(name);
-        }
-        else{
-            throw new IllegalArgumentException("Gambler: Incorrect arguments have been passed inorder to create a gambler." +
-                    " Must pass a type and a proper name. i.e.; (Dealer, Jay)");
-        }
-        return gambler;
-    }
-
-    static Gamblers createGambler(String type, String name, int balance) throws IllegalArgumentException {
-        Gamblers gambler;
-        if ("Dealer".equalsIgnoreCase(type)){
-            gambler = new Dealer(name);
-        }
-        if ("Player".equalsIgnoreCase(type)){
-            gambler = new Player(name);
-        }
-        else{
-            throw new IllegalArgumentException("Gambler: Incorrect arguments have been passed inorder to create a gambler." +
-                    " Must pass a type, proper name, and a balance. i.e.; (Dealer, Jay, 5000)");
-        }
-        return gambler;
-    }
-
     public void countHand() {
 
     }
@@ -59,7 +44,7 @@ public abstract class Gamblers {
     }
 
     public void pass() {
-
+        setPass(true);
     }
 
     public String getName() {

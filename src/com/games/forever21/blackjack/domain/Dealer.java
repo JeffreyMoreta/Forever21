@@ -9,4 +9,11 @@ class Dealer extends Gamblers{
     Dealer(String name, int balance) {
         super(name, balance);
     }
+
+    void getRandomCard() {
+
+    }
+
+    void shuffle(Gamblers gambler) {
+    }
 }
