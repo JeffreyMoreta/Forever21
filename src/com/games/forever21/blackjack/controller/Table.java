@@ -1,27 +1,42 @@
 package com.games.forever21.blackjack.controller;
 
+import com.apps.util.Prompter;
 import com.games.forever21.blackjack.domain.Gamblers;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
-class Table {
+public class Table {
+
+    private Prompter prompter;
     private Gamblers gamblers;
 
-    //map to store gambler and their balances in total
-    Map<Gamblers, Integer> gamblersTotalBalance = new HashMap<>();
 
-    //map to store gamblers bets in the current game
-    Map<Gamblers, Integer> bets = new HashMap<>();
+    public Table(Prompter prompter){
+        this.prompter = prompter;
+    }
+
+    public void startGame() throws IOException {
+        showBanner();
+        String name = prompter.prompt("Please enter name: ");
+        System.out.println("Welcome to the game: " + name );
 
 
+        // ask for name 2
+        // create gambler object
+        // likewise
+        // add it to map
 
-
-    public void startGame() {
+        //
 
     }
 
-    public void endGame() {
+    private void showBanner() throws IOException {
+        String banner = Files.readString(Path.of("resources/banner.txt"));
+        prompter.info(banner);
+    }
 
+    public void endGame() {
     }
 }
