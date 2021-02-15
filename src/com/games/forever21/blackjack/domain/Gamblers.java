@@ -19,6 +19,30 @@ public abstract class Gamblers {
         setBalance(balance);
     }
 
+    public Gamblers createGambler(String type, String name) {
+        Gamblers gambler;
+
+        if ("Dealer".equalsIgnoreCase(type)){
+            gambler = new Dealer(name);
+        } else {
+            gambler = new Player(name);
+        }
+
+        return gambler;
+    }
+
+    public Gamblers createGambler(String type, String name, int balance) {
+        Gamblers gambler;
+
+        if ("Dealer".equalsIgnoreCase(type)){
+            gambler = new Dealer(name, balance);
+        } else {
+            gambler = new Player(name, balance);
+        }
+
+        return gambler;
+    }
+
     public void countHand() {
 
     }
