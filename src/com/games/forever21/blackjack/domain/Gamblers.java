@@ -23,15 +23,11 @@ public abstract class Gamblers {
 
     }
 
-    public void hit() {
+    public void hit(){
 
     }
 
     public void pass() {
-
-    }
-
-    public void currentBalance() {
 
     }
 
