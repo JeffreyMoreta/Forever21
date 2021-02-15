@@ -20,7 +20,7 @@ public abstract class Gamblers {
     }
 
     // INSTANCE FACTORY
-    Gamblers createGambler(String type, String name) throws IllegalArgumentException {
+    static Gamblers createGambler(String type, String name) throws IllegalArgumentException {
         Gamblers gambler;
         if ("Dealer".equalsIgnoreCase(type)){
             gambler = new Dealer(name);
@@ -35,7 +35,7 @@ public abstract class Gamblers {
         return gambler;
     }
 
-    Gamblers createGambler(String type, String name, int balance) throws IllegalArgumentException {
+    static Gamblers createGambler(String type, String name, int balance) throws IllegalArgumentException {
         Gamblers gambler;
         if ("Dealer".equalsIgnoreCase(type)){
             gambler = new Dealer(name);
