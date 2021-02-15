@@ -1,13 +1,14 @@
-package com.games.forever21.blackjack;
+package com.games.forever21.blackjack.domain;
 
-abstract class Gambler {
+import java.util.Collection;
+
+public abstract class Gamblers {
     private String name;
-    private Long balance;
-    private Collection<Hand> currentHand;
-    private boolean hasWon;
+    private int balance;
+    private Collection<Card> currentHand;
+    private boolean pass;
     private boolean hasLost;
     private Long amountOfWins;
-    private Accounting accounting;
 
     public void countHand() {
 
