@@ -7,9 +7,9 @@ public abstract class Gambler {
     public static Gambler createGambler(String type, String name, int balance) throws IllegalArgumentException {
         Gambler gambler;
         if ("Dealer".equalsIgnoreCase(type)) {
-            gambler = new Dealer(name);
+            gambler = new Dealer(name, balance);
         } else if ("Player".equalsIgnoreCase(type)) {
-            gambler = new Player(name);
+            gambler = new Player(name, balance);
         } else {
             throw new IllegalArgumentException("Gambler: Incorrect arguments have been passed inorder to create a gambler." +
                     " Must pass a type, proper name, and a balance. i.e.; (Dealer, Jay, 5000)");
@@ -22,16 +22,12 @@ public abstract class Gambler {
     private int balance;
     private Collection<Card> currentHand;
     private boolean pass = false;
-    private boolean hasLost;
-    private Long amountOfWins;
+    private boolean hasWon;
+    private int acesInHand;
 
     // CONSTRUCTORS
-    Gambler(String name) {
-        setName(name);
-    }
-
     Gambler(String name, int balance) {
-        this(name);
+        setName(name);
         setBalance(balance);
     }
 
@@ -39,9 +35,16 @@ public abstract class Gambler {
     // Will count values of the cards in the gambler's current hand and return an int
     public int countHand() {
         int result = 0;
+
         for (Card card : currentHand) {
             result += card.getValue();
         }
+
+        if (getAcesInHand() > 0) {
+            result -= 10;
+            setAcesInHand(getAcesInHand() - 1);
+        }
+
         return result;
     }
 
@@ -92,19 +95,19 @@ public abstract class Gambler {
         this.pass = pass;
     }
 
-    public boolean hasLost() {
-        return hasLost;
+    public boolean hasWon() {
+        return hasWon;
     }
 
-    public void setHasLost(boolean hasLost) {
-        this.hasLost = hasLost;
+    public void setHasWon(boolean hasWon) {
+        this.hasWon = hasWon;
     }
 
-    public Long getAmountOfWins() {
-        return amountOfWins;
+    public int getAcesInHand() {
+        return acesInHand;
     }
 
-    public void setAmountOfWins(Long amountOfWins) {
-        this.amountOfWins = amountOfWins;
+    public void setAcesInHand(int acesInHand) {
+        this.acesInHand = acesInHand;
     }
 }
