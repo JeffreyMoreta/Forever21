@@ -1,5 +1,6 @@
 package com.games.forever21.blackjack.domain;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 public abstract class Gambler {
@@ -20,7 +21,7 @@ public abstract class Gambler {
     // FIELDS
     private String name;
     private int balance;
-    private Collection<Card> currentHand;
+    private Collection<Card> currentHand = new ArrayList<>();
     private boolean pass = false;
     private boolean hasWon;
     private int acesInHand;
