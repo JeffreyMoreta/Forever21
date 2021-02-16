@@ -1,13 +1,12 @@
 package com.games.forever21.blackjack.client;
 
 import com.apps.util.Prompter;
-import com.apps.util.SplashApp;
 import com.games.forever21.blackjack.controller.Table;
 
 import java.io.IOException;
 import java.util.Scanner;
 
-class Main {
+class Main{
 
 
     public static void main(String[] args) {
@@ -19,5 +18,4 @@ class Main {
             e.printStackTrace();
         }
     }
-
 }

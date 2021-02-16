@@ -38,7 +38,7 @@ public class Table {
         //number of players : 4
         //populating map with entries by users
         for(int i=0; i<4; i++){
-            String name = prompter.prompt("Aloha, please enter your fabulous name: ");
+            String name = prompter.prompt("Aloha, please enter your fabulous name: ", "^[a-zA-Z\\\\s]+", "\n Please enter a valid name. Ex: 'Joe' or 'John Doe'." );
             int amount = Integer.parseInt(prompter.prompt("Please the $$$ amount: $", "\\d+", "\n Please enter a valid amount. Ex: 5000.0"));
             System.out.println("Welcome to the game: " + name + ". Your balance is: " + amount + ".");
 
@@ -50,6 +50,7 @@ public class Table {
             prompter.prompt("Are you ready? ", String.valueOf(pattern1), retryText1);
             gamblers.add(Gambler.createGambler("Player", name, amount));
         }
+
         //showing the players list
         System.out.println("Players List:");
         for(Gambler gambler : gamblers){
@@ -69,8 +70,6 @@ public class Table {
         // 4. for loop to see if players want more cards or not
         // 5. Some will lose here => update balances
         // 6. Some will win,
-
-
 
     }
 

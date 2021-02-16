@@ -37,7 +37,6 @@ public class Dealer extends Gambler {
         deck.remove(card);
     }
 
-
     // Will pass a card to the specified gambler
     public void dealCard(Gambler gambler) {
         Card randomCard = getRandomCard();

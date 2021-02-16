@@ -32,6 +32,7 @@ enum Card {
         this.value = value;
     }
 
+
     // METHODS
     // ACCESSORS
     public int getValue() {
