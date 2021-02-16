@@ -1,7 +1,7 @@
 package com.games.forever21.blackjack.controller;
 
 import com.apps.util.Prompter;
-import com.games.forever21.blackjack.domain.Gamblers;
+import com.games.forever21.blackjack.domain.Gambler;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -10,7 +10,7 @@ import java.nio.file.Path;
 public class Table {
 
     private Prompter prompter;
-    private Gamblers gamblers;
+    private Gambler gamblers;
 
 
     public Table(Prompter prompter){

@@ -2,10 +2,10 @@ package com.games.forever21.blackjack.domain;
 
 import java.util.Collection;
 
-public abstract class Gamblers {
+public abstract class Gambler {
     // INSTANCE FACTORY
-    public static Gamblers createGambler(String type, String name, int balance) throws IllegalArgumentException {
-        Gamblers gambler;
+    public static Gambler createGambler(String type, String name, int balance) throws IllegalArgumentException {
+        Gambler gambler;
         if ("Dealer".equalsIgnoreCase(type)){
             gambler = new Dealer(name);
         }
@@ -26,21 +26,25 @@ public abstract class Gamblers {
     private boolean hasLost;
     private Long amountOfWins;
 
-    Gamblers(String name) {
+    Gambler(String name) {
         setName(name);
     }
 
-    Gamblers(String name, int balance) {
+    Gambler(String name, int balance) {
         this(name);
         setBalance(balance);
     }
 
-    public void countHand() {
-
+    public int countHand() {
+        int result = 0;
+        for (Card card : currentHand) {
+            result += card.getValue();
+        }
+        return result;
     }
 
-    public void hit(){
-
+    public void hit(Card card){
+        currentHand.add(card);
     }
 
     public void pass() {
@@ -67,11 +71,7 @@ public abstract class Gamblers {
         return currentHand;
     }
 
-    public void setCurrentHand(Collection<Card> currentHand) {
-        this.currentHand = currentHand;
-    }
-
-    public boolean isPass() {
+    public boolean hasPassed() {
         return pass;
     }
 
@@ -79,7 +79,7 @@ public abstract class Gamblers {
         this.pass = pass;
     }
 
-    public boolean isHasLost() {
+    public boolean hasLost() {
         return hasLost;
     }
 

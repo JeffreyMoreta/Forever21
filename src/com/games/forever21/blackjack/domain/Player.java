@@ -1,6 +1,6 @@
 package com.games.forever21.blackjack.domain;
 
-class Player extends Gamblers{
+class Player extends Gambler {
 
     Player(String name) {
         super(name);
