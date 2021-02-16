@@ -5,7 +5,7 @@ import java.util.Collection;
 import java.util.EnumSet;
 import java.util.Random;
 
-class Dealer extends Gambler {
+public class Dealer extends Gambler {
     // FIELDS
     private Collection<Card> deck = EnumSet.allOf(Card.class);
     private Random randomGenerator = new Random();
@@ -15,7 +15,7 @@ class Dealer extends Gambler {
         super(name);
     }
 
-    Dealer(String name, int balance) {
+    public Dealer(String name, int balance) {
         super(name, balance);
     }
 
@@ -44,7 +44,7 @@ class Dealer extends Gambler {
 
 
     // Will pass a card to the specified gambler
-    void dealCard(Gambler gambler) {
+    public void dealCard(Gambler gambler) {
         Card randomCard = getRandomCard();
         gambler.hit(randomCard);
         removeCardFromDeck(randomCard);
