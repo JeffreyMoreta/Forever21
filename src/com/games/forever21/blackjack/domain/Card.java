@@ -24,12 +24,16 @@ enum Card {
     KING_CLUBS(10),
     KING_HEARTS(10);
 
+    // FIELDS
     private int value;
 
+    // CONSTRUCTORS
     Card(int value) {
         this.value = value;
     }
 
+    // METHODS
+    // ACCESSORS
     public int getValue() {
         return value;
     }

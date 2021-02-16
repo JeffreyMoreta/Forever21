@@ -1,7 +1,7 @@
 package com.games.forever21.blackjack.domain;
 
 class Player extends Gambler {
-
+    // CONSTRUCTORS
     Player(String name) {
         super(name);
     }
@@ -10,6 +10,7 @@ class Player extends Gambler {
         super(name, balance);
     }
 
+    // METHODS
     /**
      * Allows the player to make a bet. It removes the amount from their balance.
      */

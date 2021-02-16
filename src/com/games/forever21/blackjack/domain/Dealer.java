@@ -1,13 +1,11 @@
 package com.games.forever21.blackjack.domain;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.EnumSet;
 import java.util.Random;
 
 class Dealer extends Gambler {
-    // CLASS LEVEL FIELDS
-    static long DECK_SIZE = 52;
-
     // FIELDS
     private Collection<Card> deck = EnumSet.allOf(Card.class);
     private Random randomGenerator = new Random();
@@ -52,7 +50,27 @@ class Dealer extends Gambler {
         removeCardFromDeck(randomCard);
     }
 
+    // Will grab the cards of all Gamblers passed in a Collection.
+    Collection<Card> grabCardsFromTable(Collection<Gambler> gamblers) {
+        Collection<Card> gamblerCards = new ArrayList<>();
+
+        for (Gambler gambler : gamblers) {
+            for(Card card : gambler.getCurrentHand()) {
+                gamblerCards.add(card);
+                gambler.removeCard(card);
+            }
+        }
+        return gamblerCards;
+    }
+
     // Will go through all the player hands and add those cards back to the deck
-    void shuffle() {
+    void recoverCards(Collection<Gambler> gamblers) throws IllegalArgumentException {
+        Collection<Card> gamblerCards = grabCardsFromTable(gamblers);
+
+        if(gamblerCards.size() == 0 || gamblerCards == null) {
+            throw new IllegalArgumentException("Dealer: Input is invalid. Please pass in a Collection of Gamblers.");
+        } else {
+            deck.addAll(gamblerCards);
+        }
     }
 }
