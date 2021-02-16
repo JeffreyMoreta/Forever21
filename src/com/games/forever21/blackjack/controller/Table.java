@@ -1,7 +1,7 @@
 package com.games.forever21.blackjack.controller;
 
 import com.apps.util.Prompter;
-import com.games.forever21.blackjack.domain.Gamblers;
+import com.games.forever21.blackjack.domain.Gambler;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -12,7 +12,6 @@ import java.util.regex.Pattern;
 public class Table {
 
     private Prompter prompter;
-    private Gamblers gamblers;
 
     public Table(Prompter prompter){
         this.prompter = prompter;
@@ -30,7 +29,7 @@ public class Table {
 
         //ask if ready to play
         Pattern pattern1 = Pattern.compile("[YyNn]", Pattern.CASE_INSENSITIVE);
-        String retryText1 = new String("\n Invalid input. Valid inputs are: [Y] or [y] or [N] or [n].");
+        String retryText1 = "\n Invalid input. Valid inputs are: [Y] or [y] or [N] or [n].";
 
         String name2 = prompter.prompt("Are you ready? ", String.valueOf(pattern1), retryText1);
     }
