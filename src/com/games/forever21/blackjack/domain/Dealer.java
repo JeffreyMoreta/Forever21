@@ -1,21 +1,16 @@
 package com.games.forever21.blackjack.domain;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.EnumSet;
-import java.util.Random;
+import com.sun.management.GarbageCollectionNotificationInfo;
 
-public class Dealer extends Gambler {
+import java.util.*;
+
+class Dealer extends Gambler {
     // FIELDS
     private Collection<Card> deck = EnumSet.allOf(Card.class);
     private Random randomGenerator = new Random();
 
     // CONSTRUCTORS
-    Dealer(String name) {
-        super(name);
-    }
-
-    public Dealer(String name, int balance) {
+    Dealer(String name, int balance) {
         super(name, balance);
     }
 
@@ -44,10 +39,14 @@ public class Dealer extends Gambler {
 
 
     // Will pass a card to the specified gambler
-    public void dealCard(Gambler gambler) {
+    void dealCard(Gambler gambler) {
         Card randomCard = getRandomCard();
         gambler.hit(randomCard);
         removeCardFromDeck(randomCard);
+
+        if (randomCard.name().startsWith("ACE")) {
+            gambler.setAcesInHand(gambler.getAcesInHand() + 1);
+        }
     }
 
     // Will grab the cards of all Gamblers passed in a Collection.
@@ -71,6 +70,50 @@ public class Dealer extends Gambler {
             throw new IllegalArgumentException("Dealer: Input is invalid. Please pass in a Collection of Gamblers.");
         } else {
             deck.addAll(gamblerCards);
+        }
+    }
+
+    // This will grab the value of the dealer's hand
+    int getDealersHand(Collection<Gambler> gamblers) {
+        int dealersHand = 0;
+        for (Gambler gambler : gamblers) {
+            if(gambler instanceof Dealer) {
+                dealersHand = gambler.countHand();
+            }
+        }
+        return dealersHand;
+    }
+
+    // This will go through a Collection of Gamblers and find out who won.
+    Collection<Gambler> whoWon(Collection<Gambler> gamblers) {
+        Collection<Gambler> result = new ArrayList<>();
+        int dealersHand = getDealersHand(gamblers);
+
+        for (Gambler gambler : gamblers) {
+            if(gambler instanceof Dealer) {
+                continue;
+            } else {
+                int gamblerCurrentHand = gambler.countHand();
+
+                if (gamblerCurrentHand > dealersHand && gamblerCurrentHand <= 21) {
+                    gambler.setHasWon(true);
+                }
+            }
+        }
+
+        return result;
+    }
+
+    // This will go through the Map of Gambler bets and pay the winners.
+    void payOut(Map<Gambler, Integer> bets) {
+        for (Map.Entry<Gambler, Integer> bet : bets.entrySet()) {
+            Gambler gambler = bet.getKey();
+            Integer gamblerBet = bet.getValue();
+
+            if (gambler.hasWon()) {
+                gambler.setBalance(getBalance() + (gamblerBet * 2));
+                gambler.setHasWon(false);
+            }
         }
     }
 }
