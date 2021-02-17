@@ -1,6 +1,7 @@
 package com.games.forever21.blackjack.controller;
 
 import com.apps.util.Prompter;
+import com.games.forever21.blackjack.domain.DisplayHand;
 import com.games.forever21.blackjack.domain.Gambler;
 import com.games.forever21.blackjack.domain.Dealer;
 import com.games.forever21.blackjack.domain.Player;
@@ -12,14 +13,7 @@ import java.util.*;
 import java.util.regex.Pattern;
 
 public class Table {
-
-
-    //FIELDS
-    private Prompter prompter;
-    private Collection<Gambler> gamblers = new LinkedList<>();
-    private Dealer dealer = new Dealer("Jay", 100_000);
-    private Map<Gambler, Integer>bets = new HashMap<>();
-
+    // INSTANCE FIELDS
     private static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_RED = "\u001B[31m";
     public static final String ANSI_YELLOW = "\u001B[33m";
@@ -30,6 +24,11 @@ public class Table {
     public static final String YELLOW_BRIGHT = "\033[0;93m";
     public static final String YELLOW_UNDERLINED = "\033[4;33m";
 
+    //FIELDS
+    private Prompter prompter;
+    private Collection<Gambler> gamblers = new LinkedList<>();
+    private Dealer dealer = new Dealer("Jay", 100_000);
+    private Map<Gambler, Integer>bets = new HashMap<>();
 
     //CONSTRUCTORS
     public Table(Prompter prompter){
@@ -97,7 +96,9 @@ public class Table {
     private void showPlayersHands(){
         System.out.println("Here are your hands:");
         for(Gambler gambler : gamblers) {
-            System.out.println(gambler.getName() + " : " + gambler.getCurrentHand()  + " | " + gambler.countHand());
+            System.out.println(gambler.getName() + " :");
+            DisplayHand.printHand(gambler.getCurrentHand());
+            // System.out.println(gambler.getName() + " : " + gambler.getCurrentHand()  + " | " + gambler.countHand());
         }
     }
 
@@ -115,9 +116,9 @@ public class Table {
 
     private void goAroundTable(){
         for(Gambler gambler : gamblers) {
-            while (!gambler.hasPassed() && gambler.countHand()<21){
+            while (!gambler.hasPassed() && gambler.countHand() < 21){
                 System.out.println(gambler.getName() + ", With below cards you have " + gambler.countHand());
-                System.out.println(gambler.getCurrentHand());
+                DisplayHand.printHand(gambler.getCurrentHand());
                 Pattern pattern1 = Pattern.compile("[HhSs]", Pattern.CASE_INSENSITIVE);
                 String retryText1 = "\n Invalid input. Valid inputs are: [H] or [h] or [S] or [s].";
                 String answer = prompter.prompt(gambler.getName() + ", Would you like hit or stand? ", String.valueOf(pattern1), retryText1);

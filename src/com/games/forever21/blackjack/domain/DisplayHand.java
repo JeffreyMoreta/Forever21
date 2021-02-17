@@ -4,6 +4,9 @@ import java.util.*;
 
 // might make this an enum
 public class DisplayHand {
+    // INSTANCE FIELD
+    private static final int CARD_HEIGHT = 9;       // This is the height of the card template
+
     // METHODS
     private static List<List<String>> goThroughCards(Collection<Card> hand) {
         List<List<String>> cards = new LinkedList<>();
@@ -92,15 +95,15 @@ public class DisplayHand {
     private static List<String> template(String number, String suite) {
         List<String> playingCard = new LinkedList<>();
 
-        playingCard.add("┌─────────┐");
-        playingCard.add("│"+ number +"      │");
-        playingCard.add("│         │");
-        playingCard.add("│         │");
-        playingCard.add("│    " + suite + "  │");
-        playingCard.add("│         │");
-        playingCard.add("│         │");
-        playingCard.add("│      "+ number +"│");
-        playingCard.add("└─────────┘");
+        playingCard.add("┌───────────┐ ");
+        playingCard.add("│ " + number + "         │ ");
+        playingCard.add("│           │ ");
+        playingCard.add("│           │ ");
+        playingCard.add("│     " + suite + "     │ ");
+        playingCard.add("│           │ ");
+        playingCard.add("│           │ ");
+        playingCard.add("│         " + number + " │ ");
+        playingCard.add("└───────────┘ ");
 
         return playingCard;
     }
@@ -109,9 +112,8 @@ public class DisplayHand {
     public static void printHand(Collection<Card> hand){
         List<List<String>> cards = goThroughCards(hand);
 
-        // This is looping through the amount of rows that our card template is made of. In this case it is 9.
-        // TODO: Don't hardcode the number 9 in there. Change this.
-        for (int i = 0; i < 9; i++) {
+        // This is looping through the amount of rows that our card template is made of. The max being CARD_HEIGHT.
+        for (int i = 0; i < CARD_HEIGHT; i++) {
             StringBuilder combinedRows = new StringBuilder();
             // We are now looping through each card and grabbing a row on each loop. This allows us to
             //  print the entirety of someone's hand horizontally instead of vertically.
