@@ -38,7 +38,7 @@ public class Table {
     //METHODS
     //Mother of all the game methods
     public void startGame() throws IOException {
-        // showBanner();
+        showBanner();
         populatePlayerList();
         addDealer();
         showPlayerList();
