@@ -15,9 +15,9 @@ public class Table {
 
     //FIELDS
     private Prompter prompter;
-    private Collection<Gambler> gamblers = new ArrayList<>();
+    private Collection<Gambler> gamblers = new LinkedList<>();
     private Dealer dealer = new Dealer("Jay", 100_000);
-    private Map<Gambler, Integer>bets;
+    private Map<Gambler, Integer>bets = new HashMap<>();
 
 
     //CONSTRUCTORS
@@ -30,13 +30,14 @@ public class Table {
     //Mother of all the game methods
     public void startGame() throws IOException {
         showBanner();
-        addDealer();
         populatePlayerList();
+        addDealer();
         showPlayerList();
         dealTwoCards();
         showPlayersHands();
         placingBet();
         goAroundTable();
+        whoWonGame();
         endGame();
     }
 
@@ -68,12 +69,13 @@ public class Table {
     private void showPlayerList() {
         System.out.println("Players List:");
         for (Gambler gambler : gamblers) {
-            System.out.println(gambler.getName() + " : " + gambler.getBalance());
+            System.out.println(gambler.getName() + " : $" + gambler.getBalance());
         }
     }
 
     //dealer passes each player 2 cards including him/her self
     private void dealTwoCards() {
+        System.out.println("The dealer is going to give each player 2 cards...");
         for(Gambler gambler : gamblers) {
             while(gambler.getCurrentHand().size()<2){
                 dealer.dealCard(gambler);
@@ -82,30 +84,47 @@ public class Table {
     }
 
     private void showPlayersHands(){
+        System.out.println("Here are your hands:");
         for(Gambler gambler : gamblers) {
-            System.out.println(gambler.getCurrentHand());
+            System.out.println(gambler.getName() + " : " + gambler.getCurrentHand()  + " | " + gambler.countHand());
         }
     }
 
     //check with Jeffrey again
     private void placingBet(){
         //add them to a map (gambler, Integer)
+        System.out.println("Let's bet now!");
         for(Gambler gambler : gamblers) {
+            if(gambler instanceof Dealer) continue;
             Player player = (Player) gambler;
-            int bet = Integer.parseInt(prompter.prompt("Please enter your bet: $", "\\d+", "\n Please enter a valid amount. Ex: 5000"));
+            Integer bet = Integer.parseInt(prompter.prompt(gambler.getName() + ", Please enter your bet: $", "\\d+", "\n Please enter a valid amount. Ex: 5000"));
             bets.put(player, player.bet(bet));
         }
     }
 
     private void goAroundTable(){
         for(Gambler gambler : gamblers) {
-            Pattern pattern1 = Pattern.compile("[HhSs]", Pattern.CASE_INSENSITIVE);
-            String retryText1 = "\n Invalid input. Valid inputs are: [Y] or [y] or [N] or [n].";
-            prompter.prompt("Would you like hit or stand? ", String.valueOf(pattern1), retryText1);
-            if(pattern1.toString().equals("h") || pattern1.toString().equals("H")){
-                dealer.dealCard(gambler);
+            while (!gambler.hasPassed()){
+                System.out.println(gambler.getName() + ", With below cards you have " + gambler.countHand());
+                System.out.println(gambler.getCurrentHand());
+                Pattern pattern1 = Pattern.compile("[HhSs]", Pattern.CASE_INSENSITIVE);
+                String retryText1 = "\n Invalid input. Valid inputs are: [Y] or [y] or [N] or [n].";
+                prompter.prompt(gambler.getName() + ", Would you like hit or stand? ", String.valueOf(pattern1), retryText1);
+                if(pattern1.toString().equals("h") || pattern1.toString().equals("H")){
+                    dealer.dealCard(gambler);
+                }
+                else{
+                    gambler.pass();
+                }
             }
         }
+        showPlayersHands();
+    }
+
+    public void whoWonGame(){
+        System.out.println("Here are the winners: ");
+        Collection<Gambler>winners = dealer.whoWon(gamblers);
+        System.out.println(winners);
     }
 
     // 4. for loop to see if players want more cards or not
