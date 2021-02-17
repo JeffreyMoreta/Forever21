@@ -84,7 +84,7 @@ public class Dealer extends Gambler {
     }
 
     // This will go through a Collection of Gamblers and find out who won.
-    Collection<Gambler> whoWon(Collection<Gambler> gamblers) {
+    public Collection<Gambler> whoWon(Collection<Gambler> gamblers) {
         Collection<Gambler> result = new ArrayList<>();
         int dealersHand = getDealersHand(gamblers);
 
@@ -96,6 +96,7 @@ public class Dealer extends Gambler {
 
                 if (gamblerCurrentHand > dealersHand && gamblerCurrentHand <= 21) {
                     gambler.setHasWon(true);
+                    result.add(gambler);
                 }
             }
         }
@@ -104,7 +105,7 @@ public class Dealer extends Gambler {
     }
 
     // This will go through the Map of Gambler bets and pay the winners.
-    void payOut(Map<Gambler, Integer> bets) {
+    public void payOut(Map<Gambler, Integer> bets) {
         for (Map.Entry<Gambler, Integer> bet : bets.entrySet()) {
             Gambler gambler = bet.getKey();
             Integer gamblerBet = bet.getValue();
