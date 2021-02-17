@@ -13,11 +13,22 @@ import java.util.regex.Pattern;
 
 public class Table {
 
+
     //FIELDS
     private Prompter prompter;
     private Collection<Gambler> gamblers = new LinkedList<>();
     private Dealer dealer = new Dealer("Jay", 100_000);
     private Map<Gambler, Integer>bets = new HashMap<>();
+
+    private static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_RED = "\u001B[31m";
+    public static final String ANSI_YELLOW = "\u001B[33m";
+    public static final String GREEN_BOLD_BRIGHT = "\033[1;92m";
+    public static final String GREEN_UNDERLINED = "\033[4;32m";
+    public static final String WHITE_BRIGHT = "\033[0;97m";
+    public static final String BLACK_BACKGROUND_BRIGHT = "\033[0;100m";
+    public static final String YELLOW_BRIGHT = "\033[0;93m";
+    public static final String YELLOW_UNDERLINED = "\033[4;33m";
 
 
     //CONSTRUCTORS
@@ -53,23 +64,23 @@ public class Table {
     //populating map with entries by users(4)
     public void populatePlayerList() {
         for (int i = 0; i < 4; i++) {
-            String name = prompter.prompt("Aloha, please enter your fabulous name: ");
-            int amount = Integer.parseInt(prompter.prompt("Please the initial amount: $", "\\d+", "\n Please enter a valid amount. Ex: 5000.0"));
-            System.out.println("Welcome to the game: " + name + ". Your balance is: " + amount + ".");
+            String name = prompter.prompt(ANSI_YELLOW + "Aloha, please enter your fabulous name: " + ANSI_RESET, "^[a-zA-Z]*$", ANSI_RED + "\n Please enter a valid name." + "\u001B[0m");
+            int amount = Integer.parseInt(prompter.prompt(ANSI_YELLOW + "Please enter the initial amount: $" + ANSI_RESET, "\\d+", ANSI_RED + "\n Please enter a valid amount. Ex: 5000" + "\u001B[0m"));
+            System.out.println(ANSI_YELLOW + "Welcome to the game: " + ANSI_RESET + GREEN_BOLD_BRIGHT + name + ANSI_RESET + ANSI_YELLOW + ". Your balance is: " + ANSI_RESET + GREEN_BOLD_BRIGHT + GREEN_UNDERLINED + amount + ANSI_RESET + "." + ANSI_RESET);
             System.out.println();
             gamblers.add(Gambler.createGambler("Player", name, amount));
         }
         //ask if ready to play
         Pattern pattern1 = Pattern.compile("[YyNn]", Pattern.CASE_INSENSITIVE);
         String retryText1 = "\n Invalid input. Valid inputs are: [Y] or [y] or [N] or [n].";
-        prompter.prompt("Are you ready? ", String.valueOf(pattern1), retryText1);
+        prompter.prompt(YELLOW_BRIGHT + "Are you ready? "+ ANSI_RESET, String.valueOf(pattern1), ANSI_RED + retryText1 + ANSI_RESET);
     }
 
     //showing the players list
     private void showPlayerList() {
         System.out.println("Players List:");
         for (Gambler gambler : gamblers) {
-            System.out.println(gambler.getName() + " : $" + gambler.getBalance());
+            System.out.println( YELLOW_BRIGHT + gambler.getName()+ ANSI_RESET + GREEN_BOLD_BRIGHT+ " : $" + gambler.getBalance() + ANSI_RESET);
         }
     }
 
