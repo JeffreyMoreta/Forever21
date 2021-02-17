@@ -3,7 +3,7 @@ package com.games.forever21.blackjack.domain;
 /**
  * This enum is in charge of creating once instance of every card that will belong to the deck.
  */
-enum Card {
+public enum Card {
     ACE_DIAMONDS(11),  TWO_DIAMONDS(2),  THREE_DIAMONDS(3), FOUR_DIAMONDS(4),
     ACE_CLUBS(11),     TWO_CLUBS(2),     THREE_CLUBS(3),    FOUR_CLUBS(4),
     ACE_HEARTS(11),    TWO_HEARTS(2),    THREE_HEARTS(3),   FOUR_HEARTS(4),
@@ -31,6 +31,8 @@ enum Card {
     Card(int value) {
         this.value = value;
     }
+
+
 
 
     // METHODS
