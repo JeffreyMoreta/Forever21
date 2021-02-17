@@ -33,9 +33,9 @@ public class Table {
         populatePlayerList();
         addDealer();
         showPlayerList();
+        placingBet();
         dealTwoCards();
         showPlayersHands();
-        placingBet();
         goAroundTable();
         whoWonGame();
         endGame();
@@ -108,7 +108,7 @@ public class Table {
                 System.out.println(gambler.getName() + ", With below cards you have " + gambler.countHand());
                 System.out.println(gambler.getCurrentHand());
                 Pattern pattern1 = Pattern.compile("[HhSs]", Pattern.CASE_INSENSITIVE);
-                String retryText1 = "\n Invalid input. Valid inputs are: [Y] or [y] or [N] or [n].";
+                String retryText1 = "\n Invalid input. Valid inputs are: [H] or [h] or [S] or [s].";
                 String answer = prompter.prompt(gambler.getName() + ", Would you like hit or stand? ", String.valueOf(pattern1), retryText1);
                 if(answer.equalsIgnoreCase("h")){
                     dealer.dealCard(gambler);
