@@ -104,14 +104,15 @@ public class Table {
 
     private void goAroundTable(){
         for(Gambler gambler : gamblers) {
-            while (!gambler.hasPassed()){
+            while (!gambler.hasPassed() && gambler.countHand()<21){
                 System.out.println(gambler.getName() + ", With below cards you have " + gambler.countHand());
                 System.out.println(gambler.getCurrentHand());
                 Pattern pattern1 = Pattern.compile("[HhSs]", Pattern.CASE_INSENSITIVE);
                 String retryText1 = "\n Invalid input. Valid inputs are: [Y] or [y] or [N] or [n].";
-                prompter.prompt(gambler.getName() + ", Would you like hit or stand? ", String.valueOf(pattern1), retryText1);
-                if(pattern1.toString().equals("h") || pattern1.toString().equals("H")){
+                String answer = prompter.prompt(gambler.getName() + ", Would you like hit or stand? ", String.valueOf(pattern1), retryText1);
+                if(answer.equalsIgnoreCase("h")){
                     dealer.dealCard(gambler);
+                    System.out.println("Card dealt");
                 }
                 else{
                     gambler.pass();
@@ -124,7 +125,9 @@ public class Table {
     public void whoWonGame(){
         System.out.println("Here are the winners: ");
         Collection<Gambler>winners = dealer.whoWon(gamblers);
-        System.out.println(winners);
+        for(Gambler winner : winners){
+            System.out.println(winner.getName() + ", $" + bets.get(winner));
+        }
     }
 
     // 4. for loop to see if players want more cards or not
