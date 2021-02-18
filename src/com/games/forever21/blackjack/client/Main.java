@@ -8,8 +8,7 @@ import java.util.Scanner;
 
 class Main{
 
-
-    public static void main(String[] args) {
+        public static void main(String[] args) {
 
         Table table = new Table(new Prompter(new Scanner(System.in)));
         try {
