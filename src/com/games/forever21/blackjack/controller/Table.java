@@ -16,11 +16,10 @@ public class Table {
     // INSTANCE FIELDS
     private static final String ANSI_RESET = "\u001B[0m";
     private static final String ANSI_RED = "\u001B[31m";
-    private static final String ANSI_YELLOW = "\u001B[33m";
+    public static final String ANSI_YELLOW = "\u001B[33m";
     private static final String GREEN_BOLD_BRIGHT = "\033[1;92m";
     private static final String GREEN_UNDERLINED = "\033[4;32m";
     private static final String WHITE_BRIGHT = "\033[0;97m";
-    private static final String BLACK_BACKGROUND_BRIGHT = "\033[0;100m";
     private static final String YELLOW_BRIGHT = "\033[0;93m";
     private static final String YELLOW_UNDERLINED = "\033[4;33m";
 
@@ -33,6 +32,7 @@ public class Table {
     //CONSTRUCTORS
     public Table(){
     }
+
     public Table(Prompter prompter){
         this.prompter = prompter;
     }
@@ -63,10 +63,15 @@ public class Table {
 
     //populating map with entries by users(1)
     public void populatePlayerList() {
-        for (int i = 0; i < 1; i++) {
+
+        // asks for how many players are playing
+        int startNumber = Integer.parseInt(prompter.prompt(YELLOW_BRIGHT+ "Aloha! \n Welcome to Forever 21 Casino! \n How many people are playing (1-4)? " + ANSI_RESET, "[1-4]", ANSI_RED+ "Please enter a valid number." + ANSI_RESET));
+
+        // Asks for player's name and $ amount
+        for (int i = 0; i < startNumber; i++) {
             String name = prompter.prompt(ANSI_YELLOW + "Aloha, please enter your fabulous name: " + ANSI_RESET, "^[a-zA-Z]*$", ANSI_RED + "\n Please enter a valid name." + "\u001B[0m");
             int amount = Integer.parseInt(prompter.prompt(ANSI_YELLOW + "Please enter the initial amount: $" + ANSI_RESET, "\\d+", ANSI_RED + "\n Please enter a valid amount. Ex: 5000" + "\u001B[0m"));
-            System.out.println(ANSI_YELLOW + "Welcome to the game: " + ANSI_RESET + GREEN_BOLD_BRIGHT + name + ANSI_RESET + ANSI_YELLOW + ". Your balance is: " + ANSI_RESET + GREEN_BOLD_BRIGHT + GREEN_UNDERLINED + amount + ANSI_RESET + "." + ANSI_RESET);
+            System.out.println(ANSI_YELLOW + "Welcome to the game: " + ANSI_RESET + GREEN_BOLD_BRIGHT + name + ANSI_RESET + ANSI_YELLOW + ". Your balance is: $" + ANSI_RESET + GREEN_BOLD_BRIGHT + amount + ANSI_RESET + "." + ANSI_RESET);
             System.out.println();
             gamblers.add(Gambler.createGambler("Player", name, amount));
         }
@@ -74,6 +79,7 @@ public class Table {
         Pattern pattern1 = Pattern.compile("[YyNn]", Pattern.CASE_INSENSITIVE);
         String retryText1 = "\n Invalid input. Valid inputs are: [Y] or [y] or [N] or [n].";
         prompter.prompt(YELLOW_BRIGHT + "Are you ready? "+ ANSI_RESET, String.valueOf(pattern1), ANSI_RED + retryText1 + ANSI_RESET);
+
     }
 
     //showing the players list
@@ -106,11 +112,11 @@ public class Table {
     //check with Jeffrey again
     private void placingBet(){
         //add them to a map (gambler, Integer)
-        System.out.println("Let's bet now!");
+        System.out.println("Let's " + GREEN_BOLD_BRIGHT+ "bet" + ANSI_RESET + " now!");
         for(Gambler gambler : gamblers) {
             if(gambler instanceof Dealer) continue;
             Player player = (Player) gambler;
-            int bet = Integer.parseInt(prompter.prompt(gambler.getName() + ", Please enter your bet: $", "\\d+", "\n Please enter a valid amount. Ex: 5000"));
+            int bet = Integer.parseInt(prompter.prompt(WHITE_BRIGHT + gambler.getName() + ", Please enter your bet: $" + ANSI_RESET, "\\d+", ANSI_RED + "\n Please enter a valid amount. Ex: 5000" + ANSI_RESET));
             bets.put(player, player.bet(bet));
         }
     }
@@ -122,7 +128,7 @@ public class Table {
                 DisplayHand.printHand(gambler.getCurrentHand());
                 Pattern pattern1 = Pattern.compile("[HhSs]", Pattern.CASE_INSENSITIVE);
                 String retryText1 = "\n Invalid input. Valid inputs are: [H] or [h] or [S] or [s].";
-                String answer = prompter.prompt(gambler.getName() + ", Would you like hit or stand? ", String.valueOf(pattern1), retryText1);
+                String answer = prompter.prompt(ANSI_YELLOW + gambler.getName() + ", Would you like hit or stand? " + ANSI_RESET, String.valueOf(pattern1), retryText1);
                 if(answer.equalsIgnoreCase("h")){
                     dealer.dealCard(gambler);
                     System.out.println("Card dealt");
