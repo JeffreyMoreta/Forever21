@@ -1,7 +1,5 @@
 package com.games.forever21.blackjack.domain;
 
-import com.sun.management.GarbageCollectionNotificationInfo;
-
 import java.util.*;
 
 public class Dealer extends Gambler {
@@ -15,8 +13,11 @@ public class Dealer extends Gambler {
     }
 
     // METHODS
-    // Will grab a random card from the deck
-    Card getRandomCard() {
+    /**
+     * Will grab a random card from the deck. The deck isn't shuffled. randomGenerator will generate a new random
+     *  number, from the amount of cards currently in the deck, and that card is pulled from the deck.
+     */
+    private Card getRandomCard() {
         Card result = null;
         int randomNumber = randomGenerator.nextInt(deck.size());
         int index = 0;
@@ -32,12 +33,16 @@ public class Dealer extends Gambler {
         return result;
     }
 
-    // Will remove the specified card from the deck
-    void removeCardFromDeck(Card card) {
+    /**
+     * Will remove the specified card from the deck
+     */
+    private void removeCardFromDeck(Card card) {
         deck.remove(card);
     }
 
-    // Will pass a card to the specified gambler
+    /**
+     * Will pass a card to the specified gambler also removing it from the deck.
+     */
     public void dealCard(Gambler gambler) {
         Card randomCard = getRandomCard();
         gambler.hit(randomCard);
@@ -48,8 +53,11 @@ public class Dealer extends Gambler {
         }
     }
 
-    // Will grab the cards of all Gamblers passed in a Collection.
-    Collection<Card> grabCardsFromTable(Collection<Gambler> gamblers) {
+    /**
+     * Will grab the cards of all Gamblers passed in a Collection. Removing them from the gambler's hand
+     *  and keeps track of the cards by adding them to a collection.
+     */
+    public Collection<Card> grabCardsFromTable(Collection<Gambler> gamblers) {
         Collection<Card> gamblerCards = new ArrayList<>();
 
         for (Gambler gambler : gamblers) {
@@ -61,8 +69,10 @@ public class Dealer extends Gambler {
         return gamblerCards;
     }
 
-    // Will go through all the player hands and add those cards back to the deck
-    void recoverCards(Collection<Gambler> gamblers) throws IllegalArgumentException {
+    /**
+     * Will go through all the player hands and add those cards back to the deck
+     */
+    public void recoverCards(Collection<Gambler> gamblers) throws IllegalArgumentException {
         Collection<Card> gamblerCards = grabCardsFromTable(gamblers);
 
         if(gamblerCards.size() == 0 || gamblerCards == null) {
@@ -72,8 +82,10 @@ public class Dealer extends Gambler {
         }
     }
 
-    // This will grab the value of the dealer's hand
-    int getDealersHand(Collection<Gambler> gamblers) {
+    /**
+     * This will grab the value of the dealer's hand and return it as an int
+     */
+    private int getDealersHand(Collection<Gambler> gamblers) {
         int dealersHand = 0;
         for (Gambler gambler : gamblers) {
             if(gambler instanceof Dealer) {
@@ -83,7 +95,9 @@ public class Dealer extends Gambler {
         return dealersHand;
     }
 
-    // This will go through a Collection of Gamblers and find out who won.
+    /**
+     * This will go through a Collection of Gamblers and find out who won
+     */
     public Collection<Gambler> whoWon(Collection<Gambler> gamblers) {
         Collection<Gambler> result = new ArrayList<>();
         int dealersHand = getDealersHand(gamblers);
@@ -119,7 +133,7 @@ public class Dealer extends Gambler {
 
     @Override
     public String toString() {
-        return super.toString() + getClass().getSimpleName() + ": " +
+        return super.toString() + ": " +
                 "deck=" + deck +
                 ", randomGenerator=" + randomGenerator +
                 ']';
