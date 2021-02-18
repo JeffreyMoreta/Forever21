@@ -142,10 +142,10 @@ public class Table {
     }
 
     public void whoWonGame(){
-        System.out.println("Here are the winners: ");
+        System.out.println(WHITE_BRIGHT+ "Here are the winners: " + ANSI_RESET);
         Collection<Gambler>winners = dealer.whoWon(gamblers);
         for(Gambler winner : winners){
-            System.out.println(winner.getName() + ", $" + bets.get(winner));
+            System.out.println(YELLOW_BRIGHT + winner.getName() + ANSI_RESET + ", $" + YELLOW_BRIGHT + bets.get(winner) + ANSI_RESET);
         }
     }
 
