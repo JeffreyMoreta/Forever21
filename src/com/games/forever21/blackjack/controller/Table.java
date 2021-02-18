@@ -166,6 +166,9 @@ public class Table {
         private static final int CARD_HEIGHT = 9;       // This is the height of the card template
 
         // METHODS
+        /**
+         * This will go through the gambler's hand feed the cards into processCard
+         */
         private static List<List<String>> goThroughCards(Collection<Card> hand) {
             List<List<String>> cards = new LinkedList<>();
             for (Card card : hand) {
@@ -176,15 +179,22 @@ public class Table {
             return cards;
         }
 
+        /**
+         * This will go through the card that is passed in as an argument and find what number and suit it is.
+         *  This information is then fed into the template for cards.
+         */
         private static List<String> processCard(Card card) {
             String[] cardSplit = card.name().split("_");
             String number = readNumber(cardSplit[0]);
-            String suite = readSuite(cardSplit[1]);
+            String suit = readSuite(cardSplit[1]);
 
-            // fills in the card template with the number and the suite
-            return template(number, suite);
+            // fills in the card template with the number and the suit
+            return template(number, suit);
         }
 
+        /**
+         * Will find the representation of the number that is passed in
+         */
         private static String readNumber(String number) {
             String result = "";
             switch (number) {
@@ -234,9 +244,12 @@ public class Table {
             return result;
         }
 
-        private static String readSuite(String suite) {
+        /**
+         * Will find the representation of the suit that is passed in
+         */
+        private static String readSuite(String suit) {
             String result = "";
-            switch(suite) {
+            switch(suit) {
                 case "SPADES":
                     result = "♣";
                     break;
@@ -253,14 +266,17 @@ public class Table {
             return result;
         }
 
-        private static List<String> template(String number, String suite) {
+        /**
+         * This takes the number and suit that is passed in and return the ASCII representation of the card.
+         */
+        private static List<String> template(String number, String suit) {
             List<String> playingCard = new LinkedList<>();
 
             playingCard.add("┌───────────┐ ");
             playingCard.add("│ " + number + "         │ ");
             playingCard.add("│           │ ");
             playingCard.add("│           │ ");
-            playingCard.add("│     " + suite + "     │ ");
+            playingCard.add("│     " + suit + "     │ ");
             playingCard.add("│           │ ");
             playingCard.add("│           │ ");
             playingCard.add("│         " + number + " │ ");
@@ -269,7 +285,9 @@ public class Table {
             return playingCard;
         }
 
-        // Might have to change this to print through the prompter instead of directly to System.out
+        /**
+         * This will go through the gambler's hand and print the resulting cards in ASCII form
+         */
         private static void printHand(Collection<Card> hand){
             List<List<String>> cards = goThroughCards(hand);
 
