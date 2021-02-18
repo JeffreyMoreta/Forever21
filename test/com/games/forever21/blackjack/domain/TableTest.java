@@ -31,15 +31,12 @@ public class TableTest {
     @Before
     public void setUp() throws IllegalArgumentException{
         tableTest = new TableTest();
+
         gamblersSet.add(Gambler.createGambler("Player", "Jeffrey", 1000));
         gamblersSet.add(Gambler.createGambler("Player", "Amin", 700));
         gamblersSet.add(Gambler.createGambler("Player", "Danny", 500));
         gamblersSet.add(Gambler.createGambler("Player", "Ivy", 750));
 
-        gamblers.add(Gambler.createGambler("Player", "Jeffrey", 1000));
-        gamblers.add(Gambler.createGambler("Player", "Amin", 700));
-        gamblers.add(Gambler.createGambler("Player", "Danny", 500));
-        gamblers.add(Gambler.createGambler("Player", "Ivy", 750));
 
         bets.put(Gambler.createGambler("Player", "Jeffrey", 1000), 100);
         bets.put(Gambler.createGambler("Player", "Amin", 700), 70);
@@ -53,7 +50,7 @@ public class TableTest {
         Prompter prompter = new Prompter(new Scanner(new File("responses/responses.txt")));
         for (int i = 0; i < 4; i++) {
             String name = prompter.prompt(ANSI_YELLOW + "Aloha, please enter your fabulous name: " + ANSI_RESET, "^[a-zA-Z]*$", ANSI_RED + "\n Please enter a valid name." + "\u001B[0m");
-            Integer amount = Integer.parseInt(prompter.prompt(ANSI_YELLOW + "Please enter the initial amount: $" + ANSI_RESET, "\\d+", ANSI_RED + "\n Please enter a valid amount. Ex: 5000" + "\u001B[0m"));
+            int amount = Integer.parseInt(prompter.prompt(ANSI_YELLOW + "Please enter the initial amount: $" + ANSI_RESET, "\\d+", ANSI_RED + "\n Please enter a valid amount. Ex: 5000" + "\u001B[0m"));
             gamblers.add(Gambler.createGambler("Player", name, amount));
         }
         assertEquals(gamblersSet, gamblers);
@@ -61,6 +58,11 @@ public class TableTest {
 
     @Test
     public void showPlayerList(){
+        gamblers.add(Gambler.createGambler("Player", "Jeffrey", 1000));
+        gamblers.add(Gambler.createGambler("Player", "Amin", 700));
+        gamblers.add(Gambler.createGambler("Player", "Danny", 500));
+        gamblers.add(Gambler.createGambler("Player", "Ivy", 750));
+
         List<Gambler> gamblerList = new ArrayList<>(gamblers);
         List<Gambler> gamblerSet = new ArrayList<>(gamblersSet);
         for (int i=0; i<4; i++){
@@ -71,6 +73,11 @@ public class TableTest {
 
     @Test
     public void placingBet() throws Exception {
+        gamblers.add(Gambler.createGambler("Player", "Jeffrey", 1000));
+        gamblers.add(Gambler.createGambler("Player", "Amin", 700));
+        gamblers.add(Gambler.createGambler("Player", "Danny", 500));
+        gamblers.add(Gambler.createGambler("Player", "Ivy", 750));
+
         Prompter prompter = new Prompter(new Scanner(new File("responses/bets.txt")));
         for (Gambler gambler : gamblers) {
             Integer bet = Integer.parseInt(prompter.prompt(WHITE_BRIGHT + gambler.getName() + ", Please enter your bet: $" + ANSI_RESET, "\\d+", ANSI_RED + "\n Please enter a valid amount. Ex: 5000" + ANSI_RESET));
@@ -80,6 +87,11 @@ public class TableTest {
 
     @Test
     public void dealTwoCards() {
+        gamblers.add(Gambler.createGambler("Player", "Jeffrey", 1000));
+        gamblers.add(Gambler.createGambler("Player", "Amin", 700));
+        gamblers.add(Gambler.createGambler("Player", "Danny", 500));
+        gamblers.add(Gambler.createGambler("Player", "Ivy", 750));
+
         List<Gambler> gamblerList = new ArrayList<>(gamblers);
         dealer.dealCard(gamblerList.get(0));
         dealer.dealCard(gamblerList.get(0));
