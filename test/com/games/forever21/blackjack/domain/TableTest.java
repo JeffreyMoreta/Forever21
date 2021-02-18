@@ -93,10 +93,15 @@ public class TableTest {
 
     @Test
     public void whoWonGame() {
+        List<Gambler> gamblerList = new ArrayList<>(gamblers);
+        Gambler player = Gambler.createGambler("Player", "Jeffrey", 1000);
+        player.hit(Card.ACE_CLUBS);
+        player.hit(Card.KING_CLUBS);
+        dealer.hit(Card.EIGHT_HEARTS);
+        gamblerList.add(player);
 
+        Collection<Gambler> result = dealer.whoWon(gamblerList);
 
-
-
+        assertEquals(1, result.size());
     }
-
 }
