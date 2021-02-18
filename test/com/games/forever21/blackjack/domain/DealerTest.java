@@ -42,7 +42,7 @@ public class DealerTest  {
         player.hit(Card.FOUR_HEARTS);
 
         dealer.dealCard(player);
-        assertEquals(1, player.getCurrentHand().size());
+        assertEquals(4, player.getCurrentHand().size());
     }
 
     @Test
