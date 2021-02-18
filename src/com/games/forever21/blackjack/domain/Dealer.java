@@ -118,7 +118,9 @@ public class Dealer extends Gambler {
         return result;
     }
 
-    // This will go through the Map of Gambler bets and pay the winners.
+    /**
+     * This will go through the Map of Gambler bets and pay the winners
+     */
     public void payOut(Map<Gambler, Integer> bets) {
         for (Map.Entry<Gambler, Integer> bet : bets.entrySet()) {
             Gambler gambler = bet.getKey();
