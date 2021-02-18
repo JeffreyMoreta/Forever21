@@ -31,6 +31,8 @@ public class Table {
     private Map<Gambler, Integer>bets = new HashMap<>();
 
     //CONSTRUCTORS
+    public Table(){
+    }
     public Table(Prompter prompter){
         this.prompter = prompter;
     }
