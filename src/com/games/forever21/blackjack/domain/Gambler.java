@@ -47,7 +47,7 @@ public abstract class Gambler {
             result += card.getValue();
         }
 
-        if (getAcesInHand() > 0 & result > 21) {
+        if (getAcesInHand() > 0 && result > 21) {
             result -= 10;
             setAcesInHand(getAcesInHand() - 1);
         }

@@ -119,7 +119,7 @@ public class Dealer extends Gambler {
     }
 
     /**
-     * This will go through the Map of Gambler bets and pay the winners
+     * This will go through the Map of Gambler bets.txt and pay the winners
      */
     public void payOut(Map<Gambler, Integer> bets) {
         for (Map.Entry<Gambler, Integer> bet : bets.entrySet()) {
