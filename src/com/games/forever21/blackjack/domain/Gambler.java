@@ -2,6 +2,7 @@ package com.games.forever21.blackjack.domain;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Objects;
 
 public abstract class Gambler {
     // INSTANCE FACTORY (STATIC)
@@ -110,5 +111,35 @@ public abstract class Gambler {
 
     public void setAcesInHand(int acesInHand) {
         this.acesInHand = acesInHand;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) return true;
+        if (other == null || getClass() != other.getClass()) return false;
+        Gambler gambler = (Gambler) other;
+        return getBalance() == gambler.getBalance() &&
+                pass == gambler.pass &&
+                hasWon == gambler.hasWon &&
+                getAcesInHand() == gambler.getAcesInHand() &&
+                getName().equals(gambler.getName()) &&
+                getCurrentHand().equals(gambler.getCurrentHand());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getName(), getBalance(), getCurrentHand(), pass, hasWon, getAcesInHand());
+    }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + ": " +
+                "name='" + name + '\'' +
+                ", balance=" + balance +
+                ", currentHand=" + currentHand +
+                ", pass=" + pass +
+                ", hasWon=" + hasWon +
+                ", acesInHand=" + acesInHand +
+                ']';
     }
 }

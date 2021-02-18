@@ -116,4 +116,12 @@ public class Dealer extends Gambler {
             }
         }
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + getClass().getSimpleName() + ": " +
+                "deck=" + deck +
+                ", randomGenerator=" + randomGenerator +
+                ']';
+    }
 }
