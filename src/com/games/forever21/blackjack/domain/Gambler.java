@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Objects;
 
+/**
+ * This base class generates both Players and Dealers. It keeps track of the individual's hand and balance.
+ */
 public abstract class Gambler {
     // INSTANCE FACTORY (STATIC)
     public static Gambler createGambler(String type, String name, int balance) throws IllegalArgumentException {
@@ -34,7 +37,9 @@ public abstract class Gambler {
     }
 
     // METHODS
-    // Will count values of the cards in the gambler's current hand and return an int
+    /**
+     * Will count values of the cards in the gambler's current hand and return an int
+     */
     public int countHand() {
         int result = 0;
 
@@ -50,20 +55,24 @@ public abstract class Gambler {
         return result;
     }
 
-    /*
+    /**
      * This will add a card to the player hand. This should not be called directly.
-     * dealer.dealCard(Gambler gambler) should be called instead. Might have to rename this for clarity.
+     *  dealer.dealCard(Gambler gambler) should be called instead.
      */
     public void hit(Card card) {
         currentHand.add(card);
     }
 
-    // This will remove a card from the gambler's hand
+    /**
+     * This will remove a card from the gambler's hand
+     */
     public void removeCard(Card card) {
         currentHand.remove(card);
     }
 
-    // This will turn pass to true. Signalling that this gambler will no longer accept cards and their turn is done.
+    /**
+     * This will turn pass to true. Signalling that this gambler will no longer accept cards and their turn is done.
+     */
     public void pass() {
         setPass(true);
     }
