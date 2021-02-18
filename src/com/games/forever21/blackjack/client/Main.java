@@ -21,7 +21,7 @@ class Main implements SplashApp{
 
     public static void main(String[] args) {
         Main main1 = new Main();
-        main1.welcome("images/picture.jpeg");
+        //main1.welcome("images/picture.jpeg");
         main1.start();
     }
 }

@@ -10,7 +10,7 @@ public class Player extends Gambler {
     /**
      * Allows the player to make a bet. It removes the amount from their balance.
      */
-    public int bet(int value) {
+    public Integer bet(int value) {
         setBalance(getBalance() - value);
         return value;
     }

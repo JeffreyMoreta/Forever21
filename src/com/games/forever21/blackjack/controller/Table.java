@@ -145,7 +145,7 @@ public class Table {
         System.out.println(WHITE_BRIGHT+ "Here are the winners: " + ANSI_RESET);
         Collection<Gambler>winners = dealer.whoWon(gamblers);
         for(Gambler winner : winners){
-            System.out.println(YELLOW_BRIGHT + winner.getName() + ANSI_RESET + ", $" + YELLOW_BRIGHT + bets.get(winner) + ANSI_RESET);
+            System.out.println(YELLOW_BRIGHT + winner.getName());
         }
     }
 
