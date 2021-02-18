@@ -19,7 +19,7 @@ public class Dealer extends Gambler {
      */
     private Card getRandomCard() {
         Card result = null;
-        int randomNumber = randomGenerator.nextInt(deck.size());
+        int randomNumber = randomGenerator.nextInt(getDeckSize());
         int index = 0;
 
         for (Card card : deck) {
@@ -114,7 +114,8 @@ public class Dealer extends Gambler {
             } else {
                 int gamblerCurrentHand = gambler.countHand();
 
-                if (gamblerCurrentHand > dealersHand && gamblerCurrentHand <= 21) {
+                if (gamblerCurrentHand > dealersHand && gamblerCurrentHand <= 21 ||
+                        dealersHand > 21 && gamblerCurrentHand <= 21) {
                     gambler.setHasWon(true);
                     result.add(gambler);
                 }
@@ -137,6 +138,11 @@ public class Dealer extends Gambler {
                 gambler.setHasWon(false);
             }
         }
+    }
+
+    // ACCESSORS
+    int getDeckSize() {
+        return deck.size();
     }
 
     @Override
