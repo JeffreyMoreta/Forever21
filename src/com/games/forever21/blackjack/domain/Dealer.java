@@ -61,8 +61,14 @@ public class Dealer extends Gambler {
         Collection<Card> gamblerCards = new ArrayList<>();
 
         for (Gambler gambler : gamblers) {
+            Collection<Card> cardsToRemove = new ArrayList<>();
             for(Card card : gambler.getCurrentHand()) {
                 gamblerCards.add(card);
+                cardsToRemove.add(card);
+            }
+
+            // Will remove the card from the gambler's hand
+            for(Card card : cardsToRemove) {
                 gambler.removeCard(card);
             }
         }
