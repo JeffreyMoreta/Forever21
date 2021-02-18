@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 import com.apps.util.Prompter;
 
+import java.io.File;
 import java.util.Scanner;
 
 import static org.junit.Assert.*;
@@ -21,6 +22,8 @@ public class TableTest {
 
     private TableTest tableTest;
     private Collection<Gambler> gamblers = new LinkedList<>();
+    private Collection<Gambler> gamblersSet = new LinkedList<>();
+
 
     private static final String ANSI_RESET = "\u001B[0m";
     private static final String ANSI_RED = "\u001B[31m";
@@ -35,35 +38,34 @@ public class TableTest {
     @Before
     public void setUp() throws IllegalArgumentException{
         tableTest = new TableTest();
+        gamblersSet.add(Gambler.createGambler("Player", "Jeffrey", 1000));
+        gamblersSet.add(Gambler.createGambler("Player", "Amin", 700));
+        gamblersSet.add(Gambler.createGambler("Player", "Danny", 500));
+        gamblersSet.add(Gambler.createGambler("Player", "Ivy", 750));
     }
 
-    @Test
-    public void testShowBanner() {
-
-    }
 
     @Test
-    public void populatePlayerList() {
-        Prompter prompter = new Prompter(new Scanner(System.in));
-        Collection<Gambler> gamblersSet = new LinkedList<>();
-        gamblersSet.add(new Player("Jeffrey", 1000));
-        gamblersSet.add(new Player("Amin", 700));
-        gamblersSet.add(new Player("Danny", 500));
-        gamblersSet.add(new Player("Ivy", 750));
-
+    public void populatePlayerList() throws Exception{
+        Prompter prompter = new Prompter(new Scanner(new File("responses/responses.txt")));
         for (int i = 0; i < 4; i++) {
             String name = prompter.prompt(ANSI_YELLOW + "Aloha, please enter your fabulous name: " + ANSI_RESET, "^[a-zA-Z]*$", ANSI_RED + "\n Please enter a valid name." + "\u001B[0m");
             int amount = Integer.parseInt(prompter.prompt(ANSI_YELLOW + "Please enter the initial amount: $" + ANSI_RESET, "\\d+", ANSI_RED + "\n Please enter a valid amount. Ex: 5000" + "\u001B[0m"));
-            System.out.println(ANSI_YELLOW + "Welcome to the game: " + ANSI_RESET + GREEN_BOLD_BRIGHT + name + ANSI_RESET + ANSI_YELLOW + ". Your balance is: " + ANSI_RESET + GREEN_BOLD_BRIGHT + GREEN_UNDERLINED + amount + ANSI_RESET + "." + ANSI_RESET);
-            System.out.println();
             gamblers.add(Gambler.createGambler("Player", name, amount));
         }
-
         assertEquals(gamblersSet, gamblers);
     }
 
     @Test
-    public void showPlayerList() {
+    public void showPlayerList() throws Exception{
+        List<Gambler> gamblerList = new ArrayList<>(gamblers);
+        System.out.println(gamblerList);
+        List<Gambler> gamblerSet = new ArrayList<>(gamblersSet);
+        System.out.println(gamblerSet);
+        for (int i=0; i<4; i++){
+            assertEquals(gamblerList.get(i).getName(), gamblerSet.get(i).getName());
+            assertEquals(gamblerList.get(i).getBalance(), gamblerSet.get(i).getBalance());
+        }
     }
 
     @Test
@@ -75,18 +77,13 @@ public class TableTest {
     }
 
     @Test
-    public void showPlayersHands() {
-    }
-
-    @Test
     public void goAroundTable() {
+        //test if we can complete a round
     }
 
     @Test
     public void whoWonGame() {
+        //needs test
     }
 
-    @Test
-    public void endGame() {
-    }
 }

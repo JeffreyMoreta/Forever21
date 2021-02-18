@@ -155,6 +155,9 @@ public class Table {
     // 7. Loop game until player runs out of money
 
     public void endGame() {
+        dealer.recoverCards(gamblers);
+        dealer.payOut(bets);
+        System.out.println("Thanks for playing our BlackJack Game!");
     }
 
     // INNER STATIC CLASS
