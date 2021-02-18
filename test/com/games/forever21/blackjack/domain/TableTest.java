@@ -1,6 +1,5 @@
 package com.games.forever21.blackjack.domain;
 import com.games.forever21.blackjack.controller.Table;
-import com.games.forever21.blackjack.domain.DisplayHand;
 import com.games.forever21.blackjack.domain.Gambler;
 import com.games.forever21.blackjack.domain.Dealer;
 import com.games.forever21.blackjack.domain.Player;
@@ -17,7 +16,6 @@ import java.nio.file.Path;
 import java.util.*;
 import java.util.regex.Pattern;
 
-import static com.games.forever21.blackjack.controller.Table.ANSI_YELLOW;
 
 public class TableTest {
 
