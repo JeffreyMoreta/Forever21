@@ -78,6 +78,43 @@ public class GamblerTest {
     }
 
     @Test
+    public void countHand_shouldReturnTrue_whenGamblerHasTwoAcesAndMultipleCards() {
+        player.hit(Card.ACE_CLUBS);         // 11
+        player.hit(Card.ACE_HEARTS);        // 12
+        player.setAcesInHand(2);            // Make player aware of Ace - required for accurate math
+
+        player.hit(Card.THREE_CLUBS);       // 15
+        player.hit(Card.TWO_SPADES);        // 17
+
+        assertEquals(17, player.countHand());
+    }
+
+    @Test
+    public void countHand_shouldReturnTrue_whenGamblerHasFourAndMultipleCards_whenOver21() {
+        player.hit(Card.ACE_HEARTS);        // 11
+        player.setAcesInHand(1);
+        assertEquals(11, player.countHand());
+
+        player.hit(Card.ACE_CLUBS);         // 12
+        player.setAcesInHand(player.getAcesInHand() + 1);
+        assertEquals(12, player.countHand());
+
+        player.hit(Card.ACE_SPADES);        // 13
+        player.setAcesInHand(player.getAcesInHand() + 1);
+        assertEquals(13, player.countHand());
+
+        player.hit(Card.ACE_DIAMONDS);      // 14
+        player.setAcesInHand(player.getAcesInHand() + 1);
+        assertEquals(14, player.countHand());
+
+        player.hit(Card.THREE_CLUBS);       // 17
+        assertEquals(17, player.countHand());
+
+        player.hit(Card.NINE_SPADES);       // 16
+        assertEquals(16, player.countHand());
+    }
+
+    @Test
     public void hit_shouldReturnTrue_whenGamblerHasNoCards() {
         Collection<Card> testCase = Arrays.asList(Card.ACE_CLUBS);
 

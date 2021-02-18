@@ -42,14 +42,15 @@ public abstract class Gambler {
      */
     public int countHand() {
         int result = 0;
+        int acesInHand = getAcesInHand();
 
         for (Card card : currentHand) {
             result += card.getValue();
         }
 
-        if (getAcesInHand() > 0 && result > 21) {
+        while (acesInHand > 0 && result > 21) {
             result -= 10;
-            setAcesInHand(getAcesInHand() - 1);
+            acesInHand--;
         }
 
         return result;

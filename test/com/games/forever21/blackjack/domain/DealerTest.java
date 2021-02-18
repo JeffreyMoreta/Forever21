@@ -62,18 +62,40 @@ public class DealerTest  {
 
     @Test
     public void grabCardsFromTable_shouldReturnTrue_whenGamblersNoHand() {
+        Collection<Gambler> testGamblerList = new ArrayList<>();
+        Gambler player2 = Gambler.createGambler("Player", "TEST-PLAYER2", 10_000);
 
+        testGamblerList.add(player);
+        testGamblerList.add(player2);
+
+        Collection<Card> result = dealer.grabCardsFromTable(testGamblerList);
+        assertEquals(0, result.size());
     }
 
     @Test
     public void recoverCards() {
+        Collection<Gambler> testCollection = new ArrayList<>();
+        testCollection.add(player);
+
+        for (int i = 0; i < 10; i++) {
+            dealer.dealCard(player);
+        }
+
+        dealer.recoverCards(testCollection);
+        assertEquals(52, dealer.getDeckSize());
     }
 
     @Test
-    public void whoWon() {
-    }
+    public void whoWon_shouldReturnTrue_when() {
+        Collection<Gambler> testCollection = new ArrayList<>();
+        testCollection.add(player);
 
-    @Test
-    public void payOut() {
+        player.hit(Card.ACE_HEARTS);
+        player.hit(Card.KING_CLUBS);
+        dealer.hit(Card.NINE_CLUBS);
+
+        Collection<Gambler> result = dealer.whoWon(testCollection);
+
+        assertEquals(1, result.size());
     }
 }
